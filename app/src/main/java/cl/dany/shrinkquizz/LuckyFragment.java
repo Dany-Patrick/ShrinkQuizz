@@ -1,6 +1,8 @@
 package cl.dany.shrinkquizz;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 
 public class LuckyFragment extends Fragment {
@@ -51,16 +52,25 @@ public class LuckyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 boolean answer = mood.isChecked();
-                if(answer == true)
-                {
-                    Toast.makeText(getContext(), "Genial!", Toast.LENGTH_SHORT).show();
 
-                }else
-                {
-                    Toast.makeText(getContext(), "Arriba el animo!!", Toast.LENGTH_SHORT).show();
 
-                }
+                    showDialog(answer);
+
+
             }
         });
+    }
+
+    private void showDialog(boolean answer)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage(new LuckyResult(answer).totalResult());
+        alertDialog.setPositiveButton("Salir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }
