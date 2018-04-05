@@ -1,6 +1,8 @@
 package cl.dany.shrinkquizz;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -78,8 +80,24 @@ public class MatchFragment extends Fragment {
             public void onClick(View view) {
                 int user = userSb.getProgress();
                 int lover = loverSb.getProgress();
+                showDialog(user,lover);
             }
         });
 
+
+
+    }
+
+    private void showDialog(int age1, int age2)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage(new MatchResult(age1,age2).resultOperation());
+        alertDialog.setPositiveButton("Salir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }
